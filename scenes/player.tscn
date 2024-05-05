@@ -226,3 +226,9 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_lewoy")
+
+[node name="DoubleJumpTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="DoubleJumpTimer" to="." method="_on_double_jump_timer_timeout"]
