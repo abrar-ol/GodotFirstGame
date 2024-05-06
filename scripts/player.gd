@@ -50,11 +50,9 @@ func _physics_process(delta):
 	else:
 		
 		if Input.is_action_just_pressed("jump")and jump_counter==2 && !isDoubleJump:
-			print("doubleJump")
 			animated_sprite.play("doubleJump")
 			isDoubleJump = true
 		elif jump_counter==1 :
-			print("jump")				
 			animated_sprite.play("jump")
 				
 
