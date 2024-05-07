@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dt2e641wkl8uv"]
+[gd_scene load_steps=13 format=3 uid="uid://dt2e641wkl8uv"]
 
 [ext_resource type="PackedScene" uid="uid://cqoq67di0o46n" path="res://scenes/player.tscn" id="1_dbdl8"]
 [ext_resource type="Texture2D" uid="uid://yiih2v6wjhx" path="res://assets/sprites/world_tileset.png" id="1_fa6ys"]
 [ext_resource type="PackedScene" uid="uid://bpbyv6fwn68hh" path="res://scenes/coin.tscn" id="3_2upmy"]
 [ext_resource type="PackedScene" uid="uid://c44aidreo3waa" path="res://scenes/killzone.tscn" id="4_b2mlq"]
 [ext_resource type="PackedScene" uid="uid://ggwvdsarf62o" path="res://scenes/slime.tscn" id="4_me64r"]
+[ext_resource type="PackedScene" uid="uid://dj61x6vbcaymr" path="res://scenes/platform.tscn" id="6_eusdw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ub2dk"]
 texture = ExtResource("1_fa6ys")
@@ -416,6 +417,44 @@ sources/0 = SubResource("TileSetAtlasSource_ub2dk")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_s4hbj"]
 
+[sub_resource type="Animation" id="Animation_3gmay"]
+resource_name = "up_down"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(240, -78), Vector2(240, -144)]
+}
+
+[sub_resource type="Animation" id="Animation_6omhr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(240, -78)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5js8k"]
+_data = {
+"RESET": SubResource("Animation_6omhr"),
+"up_down": SubResource("Animation_3gmay")
+}
+
 [node name="Game" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -447,3 +486,12 @@ shape = SubResource("WorldBoundaryShape2D_s4hbj")
 
 [node name="Slime" parent="." instance=ExtResource("4_me64r")]
 position = Vector2(324, -48)
+
+[node name="Platform" parent="." instance=ExtResource("6_eusdw")]
+position = Vector2(240, -78)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
+libraries = {
+"": SubResource("AnimationLibrary_5js8k")
+}
+autoplay = "up_down"

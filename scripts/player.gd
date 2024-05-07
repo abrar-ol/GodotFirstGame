@@ -37,18 +37,20 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
+ 	# flip player right and left
+	if direction < 0 :
+		animated_sprite.flip_h = true
+	else :
+		animated_sprite.flip_h = false
+		
 	# Handle Movement animation
 	if is_on_floor():
 		if direction == 0 : 
 			animated_sprite.play("idle")
 		else :
 			animated_sprite.play("move")
-			if direction < 0 :
-				animated_sprite.flip_h = true
-			else :
-				animated_sprite.flip_h = false
+			
 	else:
-		
 		if Input.is_action_just_pressed("jump")and jump_counter==2 && !isDoubleJump:
 			animated_sprite.play("doubleJump")
 			isDoubleJump = true
