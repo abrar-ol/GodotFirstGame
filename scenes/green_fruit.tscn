@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://j3f3eq12n1l"]
+
+[ext_resource type="Script" path="res://scripts/green_fruit.gd" id="1_0ia5t"]
+[ext_resource type="Texture2D" uid="uid://cdmy5biis235x" path="res://assets/sprites/fruit.png" id="1_7on5j"]
+
+[node name="GreenFruit" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_0ia5t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7on5j")
+region_enabled = true
+region_rect = Rect2(34, 1, 11, 15)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(4, -3)
+polygon = PackedVector2Array(-5, 11, -1, 11, 2, 0, 2, -5, -3, -4, -6, -3, -8, 0, -11, 2)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
