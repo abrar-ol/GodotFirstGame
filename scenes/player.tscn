@@ -228,7 +228,6 @@ position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_lewoy")
 
 [node name="DoubleJumpTimer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
+wait_time = 0.5
 
 [connection signal="timeout" from="DoubleJumpTimer" to="." method="_on_double_jump_timer_timeout"]
