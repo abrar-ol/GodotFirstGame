@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://dt2e641wkl8uv"]
+[gd_scene load_steps=19 format=3 uid="uid://dt2e641wkl8uv"]
 
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_1g536"]
 [ext_resource type="PackedScene" uid="uid://cqoq67di0o46n" path="res://scenes/player.tscn" id="1_dbdl8"]
 [ext_resource type="Texture2D" uid="uid://yiih2v6wjhx" path="res://assets/sprites/world_tileset.png" id="1_fa6ys"]
 [ext_resource type="PackedScene" uid="uid://bpbyv6fwn68hh" path="res://scenes/coin.tscn" id="3_2upmy"]
@@ -9,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://j3f3eq12n1l" path="res://scenes/green_fruit.tscn" id="7_onk16"]
 [ext_resource type="Texture2D" uid="uid://cdmy5biis235x" path="res://assets/sprites/fruit.png" id="8_ghomb"]
 [ext_resource type="PackedScene" uid="uid://ggwvdsarf62o" path="res://scenes/slime.tscn" id="9_ykesr"]
+[ext_resource type="FontFile" uid="uid://cvteoxfkxnnrv" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="10_r8hxf"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r2n2n"]
 
@@ -469,6 +471,10 @@ _data = {
 
 [node name="Game" type="Node2D"]
 
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_1g536")
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_s3ofc")
 format = 2
@@ -491,12 +497,9 @@ position_smoothing_enabled = true
 position = Vector2(-141, 64)
 shape = SubResource("WorldBoundaryShape2D_pp2p5")
 
-[node name="Coins" type="Node" parent="."]
+[node name="Labels" type="Node" parent="."]
 
-[node name="Coin2" parent="Coins" instance=ExtResource("3_2upmy")]
-position = Vector2(-8, -88)
-
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Labels"]
 offset_left = -172.0
 offset_top = -79.0
 offset_right = -86.0
@@ -509,7 +512,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="Labels"]
 offset_left = 117.0
 offset_top = -95.0
 offset_right = 205.0
@@ -522,10 +525,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Platform" parent="." instance=ExtResource("6_eusdw")]
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin2" parent="Coins" instance=ExtResource("3_2upmy")]
+position = Vector2(-8, -88)
+
+[node name="Platforms" parent="." instance=ExtResource("6_eusdw")]
 position = Vector2(-140, -11)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms"]
 libraries = {
 "": SubResource("AnimationLibrary_m4m6b")
 }
@@ -536,19 +544,28 @@ position = Vector2(151, -73)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+[node name="DoubleJump" type="ProgressBar" parent="CanvasLayer"]
 offset_left = 37.0
 offset_top = 16.0
 offset_right = 156.0
 offset_bottom = 37.0
 show_percentage = false
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(35, 23)
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/DoubleJump"]
+position = Vector2(-2, 7)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("8_ghomb")
 region_enabled = true
 region_rect = Rect2(34, 1, 11, 15)
+
+[node name="Score" type="Label" parent="CanvasLayer"]
+offset_left = 30.0
+offset_top = 50.0
+offset_right = 130.0
+offset_bottom = 73.0
+theme_override_fonts/font = ExtResource("10_r8hxf")
+theme_override_font_sizes/font_size = 16
+text = "Score: "
 
 [node name="Slime" parent="." instance=ExtResource("9_ykesr")]
 position = Vector2(552, -128)

@@ -9,7 +9,7 @@ var isDoubleJump = false
 
 @onready var double_jump_timer = $DoubleJumpTimer
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var progress_bar = $"../CanvasLayer/ProgressBar"
+@onready var double_jump_progress_bar = $"../CanvasLayer/DoubleJump"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -18,7 +18,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _increase_max_jump(maxJump:int):
 	max_jump=maxJump
 	double_jump_timer.start()
-	progress_bar.value = 100
+	double_jump_progress_bar.value = 100
 
 func _physics_process(delta):
 	
@@ -69,8 +69,8 @@ func _physics_process(delta):
 
 
 func _on_double_jump_timer_timeout():
-	progress_bar.value -= 5
-	if progress_bar.value == 0 :
+	double_jump_progress_bar.value -= 5
+	if double_jump_progress_bar.value == 0 :
 		max_jump=1
 		double_jump_timer.stop()
 		
